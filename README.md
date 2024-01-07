@@ -3,8 +3,8 @@
   This project is an implementation of the well-known game '2048'.
 
 ## Objective
-    - Objective of the game is to merge tiles with the same numbers to create a tile with the   number 2048. The game concludes when the player reaches this number. but they can continue playing, attempting to achieve the highest score possible.
-    - Player can maneuver tiles by pressing arrow keys (up, down, left, right). All tiles on the game board move in selected direction until they encounter another tile or the edge of board. 
+    Merge tiles with the same numbers to create a tile with the number 2048.
+    The game concludes when the player reaches this number, but they can continue playing to achieve the highest possible score.
 
 ## Project Features:
     - Clear and intuitive user interface;
