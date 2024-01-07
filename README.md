@@ -3,13 +3,14 @@
   This project is an implementation of the well-known game '2048'.
 
 ## Objective
-    Merge tiles with the same numbers to create a tile with the number 2048.
-    The game concludes when the player reaches this number, but they can continue playing to achieve the highest possible score.
+    - Merge tiles with the same numbers to create a tile with the number 2048.
+    - The game concludes when the player reaches this number, but they can continue playing to achieve the highest possible score.
 
 ## Project Features:
     - Clear and intuitive user interface;
     - Display of the current game state and score;
     - Tracking the player's best result;
+    - Control by arrow keys (up, down, left, right);
     - Option to restart the game.
 
 ## Techonologies
