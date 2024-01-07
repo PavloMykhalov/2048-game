@@ -1,14 +1,16 @@
 # 2048 Game
 
-  This project is an implementation of the well-known game '2048':
-    * Objective of the game is to merge tiles with the same numbers to create a tile with the   number 2048. The game concludes when the player reaches this number. but they can continue playing, attempting to achieve the highest score possible.
-    * Player can maneuver tiles by pressing arrow keys (up, down, left, right). All tiles on the game board move in selected direction until they encounter another tile or the edge of board. 
+  This project is an implementation of the well-known game '2048'.
 
-    Project Features:
-      - Clear and intuitive user interface;
-      - Display of the current game state and score;
-      - Tracking the player's best result;
-      - Option to restart the game.
+## Objective
+    - Objective of the game is to merge tiles with the same numbers to create a tile with the   number 2048. The game concludes when the player reaches this number. but they can continue playing, attempting to achieve the highest score possible.
+    - Player can maneuver tiles by pressing arrow keys (up, down, left, right). All tiles on the game board move in selected direction until they encounter another tile or the edge of board. 
+
+## Project Features:
+    - Clear and intuitive user interface;
+    - Display of the current game state and score;
+    - Tracking the player's best result;
+    - Option to restart the game.
 
 ## Techonologies
 
