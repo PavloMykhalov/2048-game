@@ -23,14 +23,16 @@ let keyTimer;
 
 document.addEventListener('keydown', (event) => {
   clearTimeout(keyTimer);
+
   keyTimer = setTimeout(() => {
     handleKeyPress(event);
-  }, 0);
+  }, 100);
 });
 
 function addRandomTile() {
   if (!hasEmptyCells() && !canMerged()) {
     messageLose.classList.remove('hidden');
+
     return;
   }
 
@@ -104,6 +106,7 @@ function isWinner() {
 function handleKeyPress(event) {
   if (isWinner()) {
     messageWin.classList.remove('hidden');
+
     return;
   }
 
@@ -125,7 +128,6 @@ function handleKeyPress(event) {
       break;
 
     default:
-      return;
   }
 }
 
@@ -226,11 +228,11 @@ function canMerged() {
   for (let row = 0; row < BOARD_SIZE; row++) {
     for (let col = 0; col < BOARD_SIZE; col++) {
       if (col < BOARD_SIZE - 1 && board[row][col] === board[row][col + 1]) {
-        return true; 
+        return true;
       }
 
       if (row < BOARD_SIZE - 1 && board[row][col] === board[row + 1][col]) {
-        return true; 
+        return true;
       }
     }
   }
