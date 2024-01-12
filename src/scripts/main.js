@@ -5,7 +5,6 @@ const startButton = document.querySelector('.button.start');
 const gameField = document.querySelector('.game-field');
 const gameScore = document.querySelector('.game-score');
 const messages = document.querySelectorAll('.message');
-const messageStart = document.querySelector('.message.message-start');
 const messageLose = document.querySelector('.message.message-lose');
 const messageWin = document.querySelector('.message.message-win');
 
@@ -20,15 +19,23 @@ const board = [
 
 startButton.addEventListener('click', startGame);
 
-document.addEventListener('keydown', (event) => handleKeyPress(event));
+let keyTimer;
+
+document.addEventListener('keydown', (event) => {
+  clearTimeout(keyTimer);
+  keyTimer = setTimeout(() => {
+    handleKeyPress(event);
+  }, 0);
+});
 
 function addRandomTile() {
-  if (!hasEmptyCells()) {
+  if (!hasEmptyCells() && !canMerged()) {
+    messageLose.classList.remove('hidden');
     return;
   }
 
   const emptyCells = [];
-  
+
   for (let i = 0; i < BOARD_SIZE; i++) {
     for (let j = 0; j < BOARD_SIZE; j++) {
       if (board[i][j] === 0) {
@@ -43,7 +50,8 @@ function addRandomTile() {
   const randomNumber = Math.random() < 0.9 ? 2 : 4;
 
   if (emptyCells.length) {
-    const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    const randomCell
+      = emptyCells[Math.floor(Math.random() * emptyCells.length)];
 
     board[randomCell.x][randomCell.y] = randomNumber;
   }
@@ -64,7 +72,7 @@ function startGame() {
   if (startButton.classList.contains('start')) {
     startButton.classList.remove('start');
     startButton.classList.add('restart');
-    startButton.textContent = 'Restart';;
+    startButton.textContent = 'Restart'; ;
   }
 
   [...messages].forEach(message => message.classList.add('hidden'));
@@ -94,6 +102,17 @@ function isWinner() {
 }
 
 function handleKeyPress(event) {
+  if (isWinner()) {
+    messageWin.classList.remove('hidden');
+    return;
+  }
+
+  if (!hasEmptyCells() && !canMerged()) {
+    messageLose.classList.remove('hidden');
+
+    return;
+  }
+
   switch (event.key) {
     case 'ArrowUp':
     case 'ArrowDown':
@@ -108,41 +127,9 @@ function handleKeyPress(event) {
     default:
       return;
   }
-
-  if (isWinner()) {
-    messageWin.classList.remove('hidden');
-  }
-}
-
-function moveTiles(direction) {
-  switch (direction) {
-    case 'up':
-      moveVertical('up');
-      break;
-
-    case 'down':
-      moveVertical('down');
-      break;
-
-    case 'left':
-      moveVertical('left');
-      break;
-
-    case 'right':
-      moveVertical('right');
-      break;
-
-    default:
-      break;
-  }
 }
 
 function moveVertical(direction) {
-  if (!hasEmptyCells() && !canMerged()) {
-    messageLose.classList.remove('hidden');
-    return;
-  }
-
   let isColumnChanged = false;
 
   for (let col = 0; col < BOARD_SIZE; col++) {
@@ -153,7 +140,7 @@ function moveVertical(direction) {
       board[3][col],
     ];
 
-    let columnCopy = [...currentColumn];
+    const columnCopy = [...currentColumn];
 
     if (direction === 'ArrowDown') {
       currentColumn.reverse();
@@ -181,11 +168,6 @@ function moveVertical(direction) {
 }
 
 function moveHorizontal(direction) {
-  if (!hasEmptyCells() && !canMerged()) {
-    messageLose.classList.remove('hidden');
-    return;
-  }
-
   let isRowChanged = false;
 
   for (let row = 0; row < BOARD_SIZE; row++) {
@@ -240,21 +222,20 @@ function removeZeroes(row) {
   return row.filter(number => number !== 0);
 }
 
-function canMerged() {  
-  let canBeMerged = false;
+function canMerged() {
+  for (let row = 0; row < BOARD_SIZE; row++) {
+    for (let col = 0; col < BOARD_SIZE; col++) {
+      if (col < BOARD_SIZE - 1 && board[row][col] === board[row][col + 1]) {
+        return true; 
+      }
 
-  for (let row = 0; row < BOARD_SIZE - 1; row++) {
-    for (let col = 0; col < BOARD_SIZE - 1; col++) {
-      if (board[row][col] === board[row + 1][col]
-        || board[row][col] === board[row][col + 1]) {
-          canBeMerged = true;
-
-          return canBeMerged;
+      if (row < BOARD_SIZE - 1 && board[row][col] === board[row + 1][col]) {
+        return true; 
       }
     }
   }
 
-  return canBeMerged;
+  return false;
 }
 
 function hasEmptyCells() {
