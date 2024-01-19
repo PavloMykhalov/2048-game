@@ -30,5 +30,5 @@ This game was developed using the following technologies:
 
   1. Clone the repository to your local machine.
   2. Navigate to the project's directory.
-  3. Run npm install command in your terminal.
-  4. Run npm start to open new tab in your browser.
+  3. Run `npm install` command in your terminal.
+  4. Run `npm start` to open new tab in your browser.
